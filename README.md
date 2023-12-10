@@ -10,4 +10,4 @@ in the app there are 4 sections:
   -Account (change login/email for your current account)
   -People (manage existing accounts)
 
-  ![Weather_Sample](https://github.com/Vovbl4/WeatherAPP/assets/146021097/c63ff83f-ed04-485f-8994-4d67217f6162)
+![image](https://github.com/Vovbl4/WeatherAPP/assets/146021097/f251ce1d-85d4-4059-bdcb-c54131d1f710)
