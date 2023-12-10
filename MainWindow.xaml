@@ -1,0 +1,132 @@
+﻿<Window x:Class="MyWPF_App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MyWPF_App"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        ResizeMode="NoResize"
+        Background="#FF302437"
+        Icon="/imgs/app.png"
+        Title="Vova's App" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="174*" />
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="109*"/>
+            <ColumnDefinition Width="12*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="1">
+            <RadioButton Style="{StaticResource MenuItem}" x:Name="MainScreen" Content="Main" Grid.Row="1" Checked="RadioButton_Checked"/>
+            <RadioButton Style="{StaticResource MenuItem}" x:Name="NotesScreen" Content="Notes" Grid.Row="1" Checked="RadioButton_Checked"/>
+            <RadioButton Style="{StaticResource MenuItem}" x:Name="AccountScreen" Content="Account" Grid.Row="1" Checked="RadioButton_Checked" />
+            <RadioButton Style="{StaticResource MenuItem}" x:Name="PeopleScreen" Content="People" Grid.Row="1" Checked="RadioButton_Checked" />
+        </StackPanel>
+
+        <Label FontWeight="Bold" x:Name="UserNameLabel" Content="UserName" Foreground="#ffffff" FontSize="18" Margin="40,10,10,10" />
+
+        <Button Style="{StaticResource MaterialDesignIconButton}" x:Name="ExitButton" Grid.Column="3" HorizontalAlignment="Left" Height="20" Width="30" Margin="178,15,0,15" Click="ExitButton_Click">
+            <Button.Background>
+                <ImageBrush ImageSource="/imgs/exit.png" Stretch="Uniform"/>
+            </Button.Background>
+        </Button>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" x:Name="MainScreenPanel" Grid.ColumnSpan="4" Visibility="Hidden">
+            <Image Source="/imgs/weather.png" Height="50" Width="50" Margin="0,50,0,0"/>
+            <Label Margin="0,20,0,30" Content="Weather app" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="22" Foreground="White"/>
+            <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="#ffffff" materialDesign:HintAssist.Hint="Type your city" x:Name="UserCityTextBox" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="232"/>
+            <Button Margin="0,30,0,0" x:Name="GetWeatherButton" Content="Get Weather" HorizontalAlignment="Center" VerticalAlignment="Top" Click="GetWeatherButton_Click"/>
+            <Label x:Name="WeatherResults" Foreground="#fff" FontWeight="Bold" Margin="0,20,0,0" Content="" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1" x:Name="PeopleScreenPanel" Grid.ColumnSpan="4">
+            <Label Margin="0,30,0,30" Content="Users list" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="22" Foreground="White"/>
+            <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="#ffffff" materialDesign:HintAssist.Hint="Type your login" x:Name="UserLoginTextBox" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="232"/>
+            <Button Margin="0,30,0,0" x:Name="DeleteUserButton" Content="Delete User" HorizontalAlignment="Center" VerticalAlignment="Top" Click="DeleteUserButton_Click"/>
+            <ListBox x:Name="UsersListBox" Margin="0,30,0,0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Foreground="WhiteSmoke" Content="{Binding Login}" />
+                            <Label Foreground="LightGoldenrodYellow" Content="{Binding Email}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1" x:Name="AccountScreenPanel" Grid.ColumnSpan="4" Visibility="Hidden">
+            <Label Margin="0,20,0,30" Content="Personal account" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="22" Foreground="White"/>
+            <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="#ffffff" materialDesign:HintAssist.Hint="Your login" x:Name="UserLogin" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="232"/>
+            <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="#ffffff" materialDesign:HintAssist.Hint="Your email" x:Name="UserEmail" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="232"/>
+            <Button Margin="0,30,0,0" x:Name="UserChangeBtn" Content="Change" HorizontalAlignment="Center" VerticalAlignment="Top" Click="UserChangeBtn_Click"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1" x:Name="NotesScreenPanel" Grid.ColumnSpan="4" Visibility="Hidden" >
+            <Menu>
+                <MenuItem Header="File" Foreground="Wheat" x:Name="MenuFile">
+                    <MenuItem Header="New File" Click="MenuNewFile_Click" x:Name="MenuNewFile" Foreground="Black">
+                        <MenuItem.Icon>
+                            <Image Source="/imgs/new_file.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Open File" Click="MenuOpenFile_Click" x:Name="MenuOpenFile" Foreground="Black">
+                        <MenuItem.Icon>
+                            <Image Source="/imgs/open_file.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Save File" Click="MenuSaveFile_Click" x:Name="MenuSaveFile" Foreground="Black">
+                        <MenuItem.Icon>
+                            <Image Source="/imgs/safe_file.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+
+                <MenuItem Header="Redact" x:Name="MenuEdit" Foreground="Wheat">
+                    <MenuItem Header="Font" x:Name="MenuSetFont" Foreground="Black">
+                        <MenuItem Header="Times New Roman" Click="TimesNewRomanSetText_Click" x:Name="TimesNewRomanSetText" StaysOpenOnClick="True" IsCheckable="True"/>
+                        <MenuItem Header="Verdana" Click="VerdanaSetText_Click" x:Name="VerdanaSetText" StaysOpenOnClick="True" IsCheckable="True"/>
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem Foreground="Black" x:Name="MenuCopyText" Header="Copy" Command="ApplicationCommands.Copy" InputGestureText="Cntrl+C"/>
+                    <MenuItem Foreground="Black" x:Name="MenuCutText" Header="Cut" Command="ApplicationCommands.Cut" InputGestureText="Cntrl+X"/>
+                    <MenuItem Foreground="Black" x:Name="MenuPasteText" Header="Paste" Command="ApplicationCommands.Paste" InputGestureText="Cntrl+V"/>
+                </MenuItem>
+            </Menu>
+            <ToolBarTray Background="Transparent">
+                <ToolBar Background="Transparent">
+                    <Button ToolTip="Save file" Style="{StaticResource MaterialDesignFlatAccentButton}" Click="MenuSaveFile_Click">
+                        <Image Height="25" Width="25" Source="/imgs/safe_file.png"/>
+                    </Button>
+                    <Button ToolTip="Open file" Style="{StaticResource MaterialDesignFlatAccentButton}" Click="MenuOpenFile_Click">
+                        <Image Height="25" Width="25" Source="/imgs/open_file.png"/>
+                    </Button>
+                    <Button ToolTip="Copy" Style="{StaticResource MaterialDesignFlatAccentButton}" Command="ApplicationCommands.Copy">
+                        <Image Height="25" Width="25" Source="/imgs/copy.png"/>
+                    </Button>
+                    <Button ToolTip="Paste" Style="{StaticResource MaterialDesignFlatAccentButton}" Command="ApplicationCommands.Paste">
+                        <Image Height="25" Width="25" Source="/imgs/paste_icon.png"/>
+                    </Button>
+                    <Button ToolTip="Cut" Style="{StaticResource MaterialDesignFlatAccentButton}" Command="ApplicationCommands.Cut">
+                        <Image Height="25" Width="25" Source="/imgs/cut_icon.png"/>
+                    </Button>
+                    <Label Content="Font size" Foreground="Wheat" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                    <ComboBox Foreground="Wheat" x:Name="SelectFontSize" SelectionChanged="SelectFontSize_SelectionChanged">
+                        <ComboBoxItem Tag="10" Foreground="Black" Content="10px"/>
+                        <ComboBoxItem Tag="12" Foreground="Black" x:Name="SetDefaultSize"  Content="12px"/>
+                        <ComboBoxItem Tag="14" Foreground="Black" Content="14px"/>
+                        <ComboBoxItem Tag="16" Foreground="Black" Content="16px"/>
+                        <ComboBoxItem Tag="20" Foreground="Black" Content="20px"/>
+                    </ComboBox>
+                </ToolBar>
+            </ToolBarTray>
+            <TextBox FontSize="12" x:Name="UserNotesTextBox" Margin="10" Style="{StaticResource MaterialDesignFilledTextBox}" materialDesign:HintAssist.Hint="Your personal notes" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" MaxHeight="200" Foreground="Wheat"/>
+        </StackPanel>
+
+    </Grid>
+</Window>
